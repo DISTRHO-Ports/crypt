@@ -19,7 +19,7 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET 10.12 CACHE STRING "Minimum OS X deployment vers
 
 project(CRYPT_SYNTH_PLUGIN VERSION 0.3.0)
 
-add_subdirectory(JUCE)
+find_package(JUCE REQUIRED)
 
 juce_add_plugin(CryptSynthPlugin
         VERSION 0.3.0                               # Set this if the plugin version is different to the project version
