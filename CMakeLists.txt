@@ -13,7 +13,7 @@
 
 cmake_minimum_required(VERSION 3.15)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_OSX_DEPLOYMENT_TARGET 10.12 CACHE STRING "Minimum OS X deployment version" FORCE)
 
@@ -37,7 +37,8 @@ juce_add_plugin(CryptSynthPlugin
         DESCRIPTION "Hyper-Unison Synthesiser from Bow Church/Vitling"
         VST3_CATEGORIES "Instrument Synth Stereo"
         AU_MAIN_TYPE "kAudioUnitType_MusicDevice"
-        FORMATS VST3 AU                  # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
+        FORMATS LV2 VST VST3 AU                  # The formats to build. Other valid formats are: AAX Unity VST AU AUv3
+        LV2_URI "https://github.com/vitling/crypt"
         BUNDLE_ID "xyz.vitling.plugins.crypt"
         HARDENED_RUNTIME_ENABLED TRUE
         PRODUCT_NAME "Crypt")        # The name of the final executable, which can differ from the target name
@@ -52,7 +53,11 @@ target_compile_definitions(CryptSynthPlugin
         PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
-        JUCE_VST3_CAN_REPLACE_VST2=0
+        JUCE_VST3_CAN_REPLACE_VST2=1
+
+        JucePlugin_WantsLV2Latency=0
+        JucePlugin_WantsLV2State=0
+        JucePlugin_WantsLV2TimePos=0
 
         # We don't have to display the splash screen since we're using JUCE
         # under the GPL
